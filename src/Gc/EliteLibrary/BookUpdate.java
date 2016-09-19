@@ -19,14 +19,43 @@ public class BookUpdate extends Book {
 
 	}
 
-	
+	public String searchAuthor(String authorKeyword) throws IOException {
+        Scanner sc = new Scanner(System.in);
 
+		
+        System.out.println("Enter The author name");
+		authorKeyword = sc.next().toLowerCase();
+		String authorfound="Author not found";
+		List<Book> bookList2=new ArrayList<>();
+
+		List<Book> bookList = new ArrayList<>();
+		BookTextFile br = new BookTextFile();
+		bookList = br.readBookList();
+		for (Book b : bookList) {
+			//System.out.println(titleKeyword + "    " + b.getBookTitle().toLowerCase().contains(titleKeyword) );
+			if (b.getBookAuthor().toLowerCase().contains(authorKeyword))
+               
+                
+				authorfound = (getBookTitle()) + '\t' + b.getBookAuthor() + '\t' + b.getBookStatus();
+		}
+				
+	    return authorfound;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
 	public String searchKeyWord(String titleKeyword) throws IOException {
 
 		Scanner sc = new Scanner(System.in);
 		titleKeyword = sc.next().toLowerCase();
 		String bookFound="book not found";
-
+        
 		List<Book> bookList = new ArrayList<>();
 		BookTextFile br = new BookTextFile();
 		bookList = br.readBookList();
@@ -34,7 +63,7 @@ public class BookUpdate extends Book {
 			//System.out.println(titleKeyword + "    " + b.getBookTitle().toLowerCase().contains(titleKeyword) );
 			if (b.getBookTitle().toLowerCase().contains(titleKeyword))
 
-				bookFound= b.getBookTitle() + '\t' + b.getBookAuthor() + '\t' + b.getBookStatus();
+				bookFound =b.getBookTitle() + '\t' + b.getBookAuthor() + '\t' + b.getBookStatus();
 		}
 				
 	    return bookFound;
