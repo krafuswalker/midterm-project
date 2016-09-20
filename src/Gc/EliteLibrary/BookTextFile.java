@@ -26,23 +26,40 @@ import java.util.Hashtable;
  * 
  *         Responsible for reading and writing Book
  *         Tile,Author,Status,Description and DueDate for checked out books to a
- *         file.
+ *         file and writes back the status update when the book is written
  */
 public class BookTextFile {
 	String bookTitle;
 	String bookAuthor;
 	String bookStatus;
-	Hashtable bookHash;
 
+	/**
+	 * The path of the file where Books are stored.
+	 */
 	private Path filePath;
 
 	public BookTextFile(String filePathString) {
 		this.filePath = Paths.get(filePathString);
 	}
 
+	/**
+	 * Constructor that lets you choose a file path.
+	 * 
+	 * @param filePathString
+	 *            path of the file where Books are stored.
+	 */
+
 	public BookTextFile() {
-		this("C:/Users/User/workspace/Labs/src/Gc/EliteLibrary/book.txt");
+		this("C:/Users/User/workspace/midterm-project/src/Gc/EliteLibrary/book.txt");
 	}
+
+	/**
+	 * Read the file and returns all the Books listed in the file.
+	 * 
+	 * @return A List of books. If not file exists, it returns an empty list.
+	 * @throws RuntimeException
+	 *             if something goes wrong while accessing the file.
+	 */
 
 	public List<Book> readBookList() throws IOException {
 
@@ -58,15 +75,20 @@ public class BookTextFile {
 			File file = filePath.toFile();
 
 			fileReader = new FileReader(file);
+			/**
+			 * BufferedReader class reads text from a character-input stream,
+			 * buffering characters so as to provide for the efficient reading
+			 * of characters, arrays and line
+			 * 
+			 */
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
 
 			while ((line = bufferedReader.readLine()) != null) {
 
-				
 				Book bookObj = new Book();
 				String[] result = line.split(",");
-				id = Integer.parseInt(result[0]);
 
+				id = Integer.parseInt(result[0]);
 				bookObj.setBookId(id);
 
 				bookObj.setBookTitle(result[1]);
@@ -79,8 +101,8 @@ public class BookTextFile {
 					bookObj.setBookDueDate(result[5]);
 				}
 
-				bookList.add((id-1),bookObj);
-				
+				bookList.add((id - 1), bookObj);
+
 			}
 
 			return bookList;
@@ -93,50 +115,10 @@ public class BookTextFile {
 
 	}
 
-	public Set<Book> readBookAsSet() throws IOException {
-
-		Set<Book> bookList = new HashSet<>();
-		String line = null;
-		FileReader fileReader = null;
-		if (!Files.exists(filePath)) {
-			return bookList;
-		}
-
-		try {
-			File file = filePath.toFile();
-
-			fileReader = new FileReader(file);
-			BufferedReader bufferedReader = new BufferedReader(fileReader);
-
-			while ((line = bufferedReader.readLine()) != null) {
-
-				DateFormat format = new SimpleDateFormat("MM/dd/yyyy");
-				Book bookObj = new Book();
-				String[] result = line.split(",");
-				bookObj.setBookId(Integer.parseInt(result[0]));
-				bookObj.setBookTitle(result[1]);
-				bookObj.setBookAuthor(result[2]);
-				bookObj.setBookDescription(result[3]);
-				bookObj.setBookStatus(result[4]);
-
-				// If the next column is available(In case of check out date)
-				if (result.length > 5) {
-					bookObj.setBookDueDate(result[5]);
-				}
-
-				bookList.add(bookObj);
-			}
-
-			return bookList;
-
-		} catch (IOException ex) {
-			throw new RuntimeException("unable to read the book list", ex);
-		} finally {
-			fileReader.close();
-		}
-
-	}
-
+	/**
+	 * Hear we delete the records and write back from set.We used it to avoid
+	 * doubling of the book list when we write back
+	 */
 	public void deleteContent() {
 
 		File file = filePath.toFile();
@@ -152,7 +134,14 @@ public class BookTextFile {
 		}
 	}
 
-	
+	/**
+	 * Writes a list of Books to the file.
+	 * 
+	 * @param The
+	 *            list of Books to write.
+	 * @throws RuntimeException
+	 *             if something goes wrong while accessing the file
+	 */
 	public void writeBookSet(List allBooks) {
 
 		try {
@@ -164,22 +153,25 @@ public class BookTextFile {
 			File file1 = filePath.toFile();
 			PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(file1, true)));
 			StringBuffer sb = new StringBuffer();
-			
+
 			for (Book bookObj : bookList) {
-				sb.append(bookObj.getBookId()+ "," + bookObj.getBookTitle() + "," + bookObj.getBookAuthor() + "," + bookObj.getBookDescription() + ","
-						+ bookObj.getBookStatus());
+				sb.append(bookObj.getBookId() + "," + bookObj.getBookTitle() + "," + bookObj.getBookAuthor() + ","
+						+ bookObj.getBookDescription() + "," + bookObj.getBookStatus());
+				/**
+				 * hear we are making sure that field is not empty
+				 */
+				
 				if (bookObj.getBookDueDate() != null && bookObj.getBookDueDate().trim() != "") {
 					sb.append("," + bookObj.getBookDueDate());
 				}
+
 				sb.append("\n");
 
-				//System.out.println("String Buffer" + sb.toString());
 			}
-			writer.println(sb);
+			writer.print(sb);
 
 			writer.close();
 
-			
 		} catch (IOException ex) {
 			// IOException is a checked exception (I have to handle it)
 			// RuntimeException is an unchecked exception (I don't have to
@@ -188,7 +180,5 @@ public class BookTextFile {
 		}
 
 	}
-	
-	
-	
+
 }

@@ -21,10 +21,7 @@ public class Book {
         this.bookDuedate = null;
     }
 
-	public BookEnum generateUpdates() {
-		return null;
-	}
-
+	
 	
     public Integer getBookId() {
 		return bookId;
@@ -88,7 +85,7 @@ public class Book {
     }
 
     @Override
-    //bookid memory location is compared hear if its same then it will over ride else it will create new
+   // bookid memory location is compared hear if its same then it will over ride else it will create new
     public boolean equals(Object obj) {
         if (this == obj)
           return true;
