@@ -25,7 +25,7 @@ public class BookCatalog {
 		String choice1;
 		BookCheckOut bookcheckout = new BookCheckOut();
 		BookUpdate bookupdate = new BookUpdate();
-		BookTextFile booktextfile = new BookTextFile("C:/Users/User/workspace/midterm-project/src/Gc/EliteLibrary/book.txt");
+		BookTextFile booktextfile = new BookTextFile();
 		System.out.println("Welcome to Gc.eLITELibrary book catalog!");
 		Book user;
 		int bookId;
