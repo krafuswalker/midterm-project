@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
@@ -24,8 +25,7 @@ public class BookCatalog {
 		String choice1;
 		BookCheckOut bookcheckout = new BookCheckOut();
 		BookUpdate bookupdate = new BookUpdate();
-		BookTextFile booktextfile = new BookTextFile(
-				"C:/Users/User/workspace/midterm-project/src/Gc/EliteLibrary/book.txt");
+		BookTextFile booktextfile = new BookTextFile("C:/Users/User/workspace/midterm-project/src/Gc/EliteLibrary/book.txt");
 		System.out.println("Welcome to Gc.eLITELibrary book catalog!");
 		Book user;
 		int bookId;
@@ -51,7 +51,7 @@ public class BookCatalog {
 
 					System.out.println("Search Book by author name");
 
-					 bookList = booktextfile.readBookList();
+					bookList = booktextfile.readBookList();
 					// Defining List result from the Array list with Book object
 					List<Book> result = new ArrayList<Book>();
 					// Defining Set string variable titles from Hashset
@@ -71,10 +71,7 @@ public class BookCatalog {
 				case 3:
 
 					System.out.println("Enter the key Word");
-
 					bookList = booktextfile.readBookList();
-					// BookUpdate bookupdate = new BookUpdate();
-
 					String title = bookupdate.searchKeyWord(titleKeyword);
 					System.out.println(title);
 
@@ -112,7 +109,8 @@ public class BookCatalog {
 						user.setBookDueDate(bookcheckout.formatCheckOut());
 						System.out.println("The book is Successfully Checked out");
 
-						System.out.println(user.getBookStatus() + "\t" + "Due on" + "\t" + user.getBookDueDate());
+						System.out.println(user.getBookStatus() + "\t" + " and Due on" + "\t" + user.getBookDueDate());
+						//System.out.println(user.getBookTitle() + "\t" + user.getBookStatus() + \"t" + "  Due on" + "\t" + user.getBookDueDate());
 						// bookList.add((bookId -1),user);
 						booktextfile.deleteContent();
 						booktextfile.writeBookSet(bookList);
@@ -154,6 +152,7 @@ public class BookCatalog {
 						// bookList.add((bookId -1),user);
 						booktextfile.deleteContent();
 						booktextfile.writeBookSet(bookList);
+
 					}
 					break;
 
@@ -169,6 +168,8 @@ public class BookCatalog {
 			System.out.print("Do yo want to continue:: ");
 			choice1 = sc.next();
 		} while (choice1.equalsIgnoreCase("Y"));
+		
+		System.out.println("Good Bye Have a nice day");
 
 	}
 
