@@ -1,9 +1,13 @@
 package Gc.EliteLibrary;
 
 import java.io.File;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 import org.junit.Assert;
@@ -15,22 +19,21 @@ public class BookTestClass {
 	@Test
 
 	public void checkId_checkTitle() {
+		Book book1=new Book();
+		book1.setBookId(1);
+		book1.setBookTitle("War and Peace");
 		
-		int catalogInput;
-		System.out.println("Enter value 1");
-		catalogInput=sc.nextInt();
-		
-		Assert.assertEquals(1,catalogInput);
+		Assert.assertEquals("War and Peace",book1.getBookTitle());
 	}
 
 	@Test
 
 	public void checkId_checkAuthor() {
 		Book book1 = new Book();
-		book1.setBookId(2);
-		book1.getBookAuthor();
+		book1.setBookId(4);
+		book1.setBookAuthor("Andrew Clements");
 
-		Assert.assertEquals(4, 2);
+		Assert.assertEquals("Andrew Clements",book1.getBookAuthor());
 	}
 
 	@Test
@@ -39,55 +42,22 @@ public class BookTestClass {
 		
         Book book1 = new Book();
 		book1.setBookId(10);
-		book1.getBookStatus();
+		book1.setBookStatus("checked out");
 
-		Assert.assertEquals(10, 10);
+		Assert.assertEquals( "checked out",book1.getBookStatus());
 	}
 
 	@Test
 	public void checkId_CheckDescription() {
 		Book book1 = new Book();
-		book1.setBookId(10);
+		book1.setBookId(15);
 		book1.getBookDescription();
 
 		Assert.assertEquals(15, 15);
 	}
 	
 	
-	@Test
-	public void checkcatalogInput_case1(){
-		
-        int userInput=1;
-		Assert.assertEquals(1, userInput);
-	}
 	
-	@Test
-	public void checkcatalogInput_case2(){
-		
-        int userInput=2;
-		Assert.assertNotEquals(3, 2);
-	}
-	
-	@Test
-	public void checkcatalogInput_case3(){
-		
-        int userInput=3;
-		Assert.assertEquals(3, userInput);
-	}
-	
-	@Test
-	public void checkcatalogInput_case4(){
-		
-        int userInput=4;
-		Assert.assertEquals(4, userInput);
-	}
-	
-	@Test
-	public void checkcatalogInput_case5(){
-		
-        int userInput=5;
-		Assert.assertEquals(5, userInput);
-	}
 	@Test
 	public void checkOutStatus_UpdateInTextFile(){
 		
@@ -107,52 +77,47 @@ public class BookTestClass {
 		Assert.assertEquals("OnShelf",b.getBookStatus());
 	 }
 	
-@Test
+
 	
-	public void checkTitleKeyword() throws FileNotFoundException{
-		Book b=new Book();
+	@Test
+	public void checkUpdate_FormatDate(){
+		BookCheckOut bc=new BookCheckOut();
 		
-		String titleKeyword="vvvv";
-		File file = new File("C:/Users/User/workspace/midterm-project/src/Gc/EliteLibrary/book.txt");
-
 		
-		    Scanner scanner = new Scanner(file);
+		String date =bc.formatCheckOut();
+		Assert.assertEquals("10/04/2016", date);
 
-		    //now read the file line by line...
-		    int lineNum = 0;
-		    while (scanner.hasNextLine()) {
-		        String line = scanner.nextLine();
-		        System.out.println(line);
-		        lineNum++;
-		        if(b.getBookTitle().contains("war")) { 
-		            System.out.println(b.getBookAuthor() +lineNum);
-		        }
-		    }
-		    Assert.assertEquals("vvvv",b.getBookStatus());
-	  
 	 }
 
-
-public void checkId_checkout() throws FileNotFoundException{
-	Book b=new Book();
-	
-File file = new File("C:/Users/User/workspace/midterm-project/src/Gc/EliteLibrary/book.txt");
-
-	b.setBookId(12);
-	if (b.getBookId().equals(b.getBookStatus().contains("Checked out")));{
+	@Test
+	public void checkIn_DueDate(){
+		BookCheckOut bc=new BookCheckOut();
 		
-	
-		System.out.println("pass");
+		
+		String date =bc.todayCheckinDate();
+		Assert.assertEquals("09/20/2016", date);
+
+		
 	}
-	 {
-	
-		System.out.println("fail");
+		
+	@Test
+	public void Search_TitleKeyword() throws IOException{
+		BookUpdate bookupdate=new BookUpdate();
+		String booktitle= bookupdate.searchKeyWord("peace");
+    
+		Assert.assertEquals("War and Peace	Leo Tolstoy	Checked out", booktitle);
+
+		
 	}
 
-
-
-}
-
+	@Test
+	public void Search_AuthorMethod() throws IOException{
+		BookUpdate bookupdate=new BookUpdate();
+		String author=bookupdate.searchAuthor("Ayn");
+    
+		Assert.assertEquals("10	The Fountainhead		Ayn Rand	Checked out\n11	Atlas Shrugged		Ayn Rand	OnShelf\n12	Anthem		Ayn Rand	Checked out\n", author);
+		
+	}
 	
 
 
