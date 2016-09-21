@@ -28,6 +28,9 @@ public class BookCatalog {
 		BookUpdate bookupdate = new BookUpdate();
 		BookTextFile booktextfile = new BookTextFile(
 				"C:/Users/User/workspace/midterm-project/src/Gc/EliteLibrary/book.txt");
+
+		 
+
 		System.out.println("Welcome to Gc.eLITELibrary book catalog!");
 		System.out.println("****************************************");
 		Book user=null ;

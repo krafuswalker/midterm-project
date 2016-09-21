@@ -50,7 +50,7 @@ public class BookTextFile {
 	 */
 
 	public BookTextFile() {
-		this("C:/Users/User/workspace/midterm-project/src/Gc/EliteLibrary/book.txt");
+		this("src/Gc/EliteLibrary/book.txt");
 	}
 
 	/**
