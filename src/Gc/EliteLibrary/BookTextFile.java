@@ -116,7 +116,7 @@ public class BookTextFile {
 	}
 
 	/**
-	 * Hear we delete the records and write back from set.We used it to avoid
+	 * Hear we re write the records.We used it to avoid
 	 * doubling of the book list when we write back
 	 */
 	public void deleteContent() {

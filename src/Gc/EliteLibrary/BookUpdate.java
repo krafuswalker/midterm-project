@@ -11,7 +11,7 @@ import java.util.Scanner;
 import java.util.Set;
 
 public class BookUpdate extends Book {
-
+	Scanner sc = new Scanner(System.in);
 	BookTextFile bt = new BookTextFile();
 
 	public BookUpdate() {
@@ -19,14 +19,13 @@ public class BookUpdate extends Book {
 
 	}
 
+	
 	public String searchAuthor(String authorKeyword) throws IOException {
-		Scanner sc = new Scanner(System.in);
+		
 
 		System.out.println("Enter The author name");
 		authorKeyword = sc.next().toLowerCase();
 		String authorfound = "";
-		;
-
 		List<Book> bookList = new ArrayList<>();
 		BookTextFile br = new BookTextFile();
 		bookList = br.readBookList();
@@ -34,17 +33,17 @@ public class BookUpdate extends Book {
 
 			if (b.getBookAuthor().toLowerCase().contains(authorKeyword))
 
-				authorfound += (b.getBookId() + "\t" + b.getBookTitle() + '\t' + "\t" + b.getBookAuthor() + '\t'
+				authorfound += (b.getBookId()  + "\t\t" + b.getBookTitle() + "\n\t\t" + b.getBookAuthor() + "\n\t\t"
 						+ b.getBookStatus()) + "\n";
-
 		}
-
+		
+		
 		return authorfound;
 	}
 
 	public String searchKeyWord(String titleKeyword) throws IOException {
 
-		Scanner sc = new Scanner(System.in);
+		
 		titleKeyword = sc.next().toLowerCase();
 		String bookFound = "book not found";
 
@@ -58,6 +57,7 @@ public class BookUpdate extends Book {
 		}
 
 		return bookFound;
+		
 	}
 
 }
