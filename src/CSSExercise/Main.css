@@ -1,0 +1,38 @@
+h1 {
+	border-style: dashed;
+	border-color: red;
+	text-align: center;
+	color: gold;
+	text-decoration: overline;
+}
+
+div.divtwo {
+	color: #ff0080;
+}
+
+div.divOne {
+	color: blue;
+}
+
+p.divOneP2 {
+	color: #804040;
+	border-style: solid;
+	text-align: center;
+	border-color: green
+}
+
+p#id3 {
+	color: #ff8000;
+	word-spacing: .5in;
+	font-weight: bold;
+}
+
+p#idOne, .divTwoClassTwo {
+	color: #0000ff;
+}
+h2 {
+	color:green
+}
+div li {
+	color: #408080;
+}
